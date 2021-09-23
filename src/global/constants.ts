@@ -9,6 +9,10 @@ export const pageRoutes: PageRoutes = {
     slug: '/live-person',
     title: EChatProviders.LIVE_PERSON,
   },
+  contactAtOnce: {
+    slug: '/contact-at-once',
+    title: EChatProviders.CONTACT_AT_ONCE,
+  },
 }
 
 export const engagementClass = {

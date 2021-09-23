@@ -1,22 +1,25 @@
 /// <reference types="react-scripts" />
 
 interface Window {
-  gubagooCustomParams: any;
+  gubagooCustomParams: any
   lpTag: {
-    events: any;
+    events: any
+    sdk: {
+      exec: Function
+    }
     taglets: {
       lpUnifiedWindow: {
-        onBeforeNavigation: Function;
-      };
-    };
-    newPage: Function;
-  };
-  ggChat: Function;
+        onBeforeNavigation: Function
+      }
+    }
+    newPage: Function
+  }
+  ggChat: Function
   ggToolbar: {
     apps: {
       chat: {
-        goMobile: Function;
-      };
-    };
-  };
+        goMobile: Function
+      }
+    }
+  }
 }

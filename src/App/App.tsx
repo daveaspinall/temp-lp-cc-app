@@ -11,7 +11,7 @@ export const App = () => {
     '/gubagoo',
     '/live-person',
     '/live-person-2',
-    // '/contact-at-once'
+    '/contact-at-once',
   ]
 
   return (

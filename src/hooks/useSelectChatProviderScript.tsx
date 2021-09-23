@@ -5,6 +5,7 @@ import * as AppActions from '../context/actions/app/actions'
 import { pageRoutes } from '../global/constants'
 import { addGubagooScript } from '../utils/addGubagooScript'
 import { addLivePersonScript } from '../utils/addLivePersonScript'
+import { addContactAtOnceScript } from '../utils/addContactAtOnceScript'
 
 export const useSelectChatProviderScript = () => {
   const { state, dispatch } = useContext(AppContext)
@@ -14,7 +15,7 @@ export const useSelectChatProviderScript = () => {
   const textButtonRef = livePerson?.textButtonRef?.current
 
   useEffect(() => {
-    const { gubagoo, livePerson } = pageRoutes
+    const { gubagoo, livePerson, contactAtOnce } = pageRoutes
 
     const getScriptIdFormat = (scriptId: string) =>
       `script-${scriptId.toLowerCase().replace(' ', '-')}`
@@ -30,10 +31,21 @@ export const useSelectChatProviderScript = () => {
         }
         dispatch(AppActions.setIsChatReady(true))
         break
+
+      case contactAtOnce.slug:
+        if (fullPageAdData) {
+          // addLivePersonScript(scriptId)
+          addContactAtOnceScript(scriptId)
+          console.log(window.lpTag)
+        }
+        dispatch(AppActions.setIsChatReady(true))
+        break
+
       case livePerson.slug:
       case `${livePerson.slug}-2`:
         addLivePersonScript(scriptId)
         break
+
       default:
         break
     }

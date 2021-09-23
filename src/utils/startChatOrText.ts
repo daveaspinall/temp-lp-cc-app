@@ -1,12 +1,19 @@
 import { Dispatch } from 'react'
-import { EButtonTypes, EChatProviders, ILivePerson } from '../global/types'
+import {
+  EButtonTypes,
+  EChatProviders,
+  IFullPageAdData,
+  ILivePerson,
+} from '../global/types'
 import { getConversationId } from './getConversationId'
 import * as AppActions from '../context/actions/app/actions'
+import { getCommonVariables, sdkExecStartChat } from './contactAtOnce.utils'
 
 interface IStartCharOrText {
   chatProvider: EChatProviders
   type: EButtonTypes
   livePerson?: ILivePerson
+  fullPageAdData?: IFullPageAdData
   dispatch: Dispatch<any>
 }
 
@@ -14,6 +21,7 @@ export const startChatOrText = async ({
   chatProvider,
   type,
   livePerson,
+  fullPageAdData,
   dispatch,
 }: IStartCharOrText) => {
   const conversationId = await getConversationId()
@@ -34,7 +42,29 @@ export const startChatOrText = async ({
           console.error("Couldn't start Gubagoo text", error)
         }
       }
+      break
 
+    case EChatProviders.CONTACT_AT_ONCE:
+      if (type === EButtonTypes.CHAT) {
+        const chatEngConfiguration = {
+          referenceId: fullPageAdData?.DID.toString(),
+          channel: 'chat',
+          lpVars: getCommonVariables(fullPageAdData!),
+        }
+        sdkExecStartChat(chatEngConfiguration)
+      } else {
+        const chatEngConfiguration = {
+          referenceId: fullPageAdData?.DID,
+          channel: 'mtc',
+          lpVars: getCommonVariables(fullPageAdData!),
+          mtc: {
+            phoneNumber: '000',
+            tapToTextDisabled: false,
+            message: `Hello I'm super interested in your vehicle thing`,
+          },
+        }
+        sdkExecStartChat(chatEngConfiguration)
+      }
       break
 
     case EChatProviders.LIVE_PERSON:
@@ -43,6 +73,11 @@ export const startChatOrText = async ({
 
         const hiddenLivePersonChatEngagement = livePerson?.chatButtonRef
         const hiddenLivePersonTextEngagement = livePerson?.textButtonRef
+
+        console.log({
+          hiddenLivePersonChatEngagement,
+          hiddenLivePersonTextEngagement,
+        })
 
         if (type === EButtonTypes.CHAT) {
           const generatedEmbeddedButton: HTMLElement =
