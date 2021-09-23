@@ -1,4 +1,4 @@
-import React, { useContext, forwardRef, HTMLSpanElement } from 'react'
+import React, { useContext, forwardRef } from 'react'
 import { AppContext } from '../../context/context/AppContext'
 import { EButtonTypes, EChatProviders } from '../../global/types'
 import { IHiddenEngagement } from './HiddenEngagement.types'
