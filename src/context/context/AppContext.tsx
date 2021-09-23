@@ -5,22 +5,22 @@ import React, {
   Reducer,
   ReactNode,
   ReactNodeArray,
-} from "react";
-import { initState } from "../state/initState";
-import { appReducer } from "../reducers/app/reducer";
-import { IAppContext } from "../state/state.types";
+} from 'react'
+import { initState } from '../state/initState'
+import { appReducer } from '../reducers/app/reducer'
+import { IAppContext } from '../state/state.types'
 
 export const AppContext = createContext<IAppContext>({
   state: initState,
-  dispatch: function () {
-    return null;
+  dispatch() {
+    return null
   },
-});
+})
 
-AppContext.displayName = "ChatDemoProvider";
+AppContext.displayName = 'ChatDemoProvider'
 
 export interface IAppProvider {
-  children: ReactNode | ReactNodeArray;
+  children: ReactNode | ReactNodeArray
 }
 
 export const AppProvider = ({ children }: IAppProvider) => {
@@ -28,15 +28,16 @@ export const AppProvider = ({ children }: IAppProvider) => {
     appReducer,
     initState,
     undefined
-  );
+  )
 
-  const memoizedContextValue: IAppContext = useMemo<IAppContext>(() => {
-    return { state, dispatch };
-  }, [state, dispatch]);
+  const memoizedContextValue: IAppContext = useMemo<IAppContext>(
+    () => ({ state, dispatch }),
+    [state, dispatch]
+  )
 
   return (
     <AppContext.Provider value={memoizedContextValue}>
       {children}
     </AppContext.Provider>
-  );
-};
+  )
+}

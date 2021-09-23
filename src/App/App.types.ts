@@ -1,3 +1,3 @@
 export interface IRouterParams {
-  id: string;
+  id: string
 }

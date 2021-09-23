@@ -1,13 +1,13 @@
-import { Dispatch } from "react";
-import { EButtonTypes, EChatProviders, ILivePerson } from "./../global/types";
-import { getConversationId } from "./getConversationId";
-import * as AppActions from "../context/actions/app/actions";
+import { Dispatch } from 'react'
+import { EButtonTypes, EChatProviders, ILivePerson } from '../global/types'
+import { getConversationId } from './getConversationId'
+import * as AppActions from '../context/actions/app/actions'
 
 interface IStartCharOrText {
-  chatProvider: EChatProviders;
-  type: EButtonTypes;
-  livePerson?: ILivePerson;
-  dispatch: Dispatch<any>;
+  chatProvider: EChatProviders
+  type: EButtonTypes
+  livePerson?: ILivePerson
+  dispatch: Dispatch<any>
 }
 
 export const startChatOrText = async ({
@@ -16,47 +16,52 @@ export const startChatOrText = async ({
   livePerson,
   dispatch,
 }: IStartCharOrText) => {
-  const conversationId = await getConversationId();
+  const conversationId = await getConversationId()
 
   switch (chatProvider) {
     case EChatProviders.GUBAGOO:
       if (type === EButtonTypes.CHAT) {
-        window.gubagooCustomParams.conversationId = conversationId;
+        window.gubagooCustomParams.conversationId = conversationId
         try {
-          window?.ggChat();
+          window?.ggChat()
         } catch (error) {
-          console.error("Couldn't start Gubagoo chat", error);
+          console.error("Couldn't start Gubagoo chat", error)
         }
       } else {
         try {
-          window?.ggToolbar?.apps.chat?.goMobile();
+          window?.ggToolbar?.apps.chat?.goMobile()
         } catch (error) {
-          console.error("Couldn't start Gubagoo text", error);
+          console.error("Couldn't start Gubagoo text", error)
         }
       }
-      break;
+
+      break
+
     case EChatProviders.LIVE_PERSON:
-      dispatch(AppActions.setConversationId(conversationId));
+      {
+        dispatch(AppActions.setConversationId(conversationId))
 
-      const hiddenLivePersonChatEngagement = livePerson?.chatButtonRef;
-      const hiddenLivePersonTextEngagement = livePerson?.textButtonRef;
+        const hiddenLivePersonChatEngagement = livePerson?.chatButtonRef
+        const hiddenLivePersonTextEngagement = livePerson?.textButtonRef
 
-      if (type === EButtonTypes.CHAT) {
-        const generatedEmbeddedButton: HTMLElement =
-          hiddenLivePersonChatEngagement?.current?.children.item(
-            0
-          ) as HTMLElement;
-        generatedEmbeddedButton.click();
-      } else {
-        hiddenLivePersonTextEngagement?.current?.click();
-        const generatedEmbeddedButton: HTMLElement =
-          hiddenLivePersonTextEngagement?.current?.children.item(
-            0
-          ) as HTMLElement;
-        generatedEmbeddedButton.click();
+        if (type === EButtonTypes.CHAT) {
+          const generatedEmbeddedButton: HTMLElement =
+            hiddenLivePersonChatEngagement?.current?.children.item(
+              0
+            ) as HTMLElement
+          generatedEmbeddedButton.click()
+        } else {
+          hiddenLivePersonTextEngagement?.current?.click()
+          const generatedEmbeddedButton: HTMLElement =
+            hiddenLivePersonTextEngagement?.current?.children.item(
+              0
+            ) as HTMLElement
+          generatedEmbeddedButton.click()
+        }
       }
-      break;
+      break
+
     default:
-      break;
+      break
   }
-};
+}

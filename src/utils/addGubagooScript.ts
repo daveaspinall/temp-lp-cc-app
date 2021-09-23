@@ -1,5 +1,5 @@
-import { IFullPageAdData } from "../global/types";
-import { addScript } from "./addScript";
+import { IFullPageAdData } from '../global/types'
+import { addScript } from './addScript'
 
 export const addGubagooScript = (
   fullPageAdData: IFullPageAdData,
@@ -12,13 +12,13 @@ export const addGubagooScript = (
     trim: fullPageAdData.trim,
     vin: fullPageAdData.vin,
     year: fullPageAdData.year,
-  };
+  }
 
   if (DID) {
     addScript({
       src: `https://cdn.gubagoo.io/toolbars/integration/ATUK_${DID}.js`,
       id: scriptId,
       async: true,
-    });
+    })
   }
-};
+}

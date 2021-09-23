@@ -1,7 +1,7 @@
-import { EButtonTypes } from "../../global/types";
+import { EButtonTypes } from '../../global/types'
 
 export interface IButton {
-  text: string;
-  type: EButtonTypes;
-  additionalClassNames?: string;
+  text: string
+  type: EButtonTypes
+  additionalClassNames?: string
 }

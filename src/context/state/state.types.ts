@@ -1,5 +1,5 @@
-import { IFullPageAdData, ILivePerson } from "./../../global/types";
-import { Dispatch } from "react";
+import { Dispatch } from 'react'
+import { IFullPageAdData, ILivePerson } from '../../global/types'
 // ==================
 // ENUMS
 
@@ -8,19 +8,19 @@ import { Dispatch } from "react";
 
 // Top level
 export interface IApp {
-  fullPageAdData?: IFullPageAdData;
-  conversationId?: string;
-  isChatReady: boolean;
-  livePerson?: ILivePerson;
+  fullPageAdData?: IFullPageAdData
+  conversationId?: string
+  isChatReady: boolean
+  livePerson?: ILivePerson
 }
 
 // Misc.
 export interface IAppAction {
-  type: string;
-  payload: any;
+  type: string
+  payload: any
 }
 
 export interface IAppContext {
-  state: IApp;
-  dispatch: Dispatch<any>;
+  state: IApp
+  dispatch: Dispatch<any>
 }
